@@ -1,58 +1,56 @@
 package factory
 
-// IRuleConfigParser IRuleConfigParser
-type IRuleConfigParser interface {
+// 工厂
+type Factory interface {
 	Parse(data []byte)
 }
 
-// jsonRuleConfigParser jsonRuleConfigParser
-type jsonRuleConfigParser struct {
+type implement1 struct {
 }
 
-// Parse Parse
-func (J jsonRuleConfigParser) Parse(data []byte) {
+// Parse 实现1
+func (J implement1) Parse(data []byte) {
 	panic("implement me")
 }
 
-// yamlRuleConfigParser yamlRuleConfigParser
-type yamlRuleConfigParser struct {
+type implement2 struct {
 }
 
-// Parse Parse
-func (Y yamlRuleConfigParser) Parse(data []byte) {
+// Parse 实现2
+func (Y implement2) Parse(data []byte) {
 	panic("implement me")
 }
 
-// IRuleConfigParserFactory 工厂方法接口
-type IRuleConfigParserFactory interface {
-	CreateParser() IRuleConfigParser
+// FactoryMethods 工厂方法接口
+type FactoryMethods interface {
+	CreateParser() Factory
 }
 
-// yamlRuleConfigParserFactory yamlRuleConfigParser 的工厂类
-type yamlRuleConfigParserFactory struct {
+// FactoryMethodsImpl1  的工厂类
+type FactoryMethodsImpl1 struct {
 }
 
-// CreateParser CreateParser
-func (y yamlRuleConfigParserFactory) CreateParser() IRuleConfigParser {
-	return yamlRuleConfigParser{}
+// CreateParser 工厂方法实现1
+func (y FactoryMethodsImpl1) CreateParser() Factory {
+	return implement2{}
 }
 
-// jsonRuleConfigParserFactory jsonRuleConfigParser 的工厂类
-type jsonRuleConfigParserFactory struct {
+// FactoryMethodsImpl2 的工厂类
+type FactoryMethodsImpl2 struct {
 }
 
-// CreateParser CreateParser
-func (j jsonRuleConfigParserFactory) CreateParser() IRuleConfigParser {
-	return jsonRuleConfigParser{}
+// CreateParser 工厂方法实现2
+func (j FactoryMethodsImpl2) CreateParser() Factory {
+	return implement1{}
 }
 
 // NewIRuleConfigParserFactory 用一个简单工厂封装工厂方法
-func NewIRuleConfigParserFactory(t string) IRuleConfigParserFactory {
+func NewIRuleConfigParserFactory(t string) FactoryMethods {
 	switch t {
-	case "json":
-		return jsonRuleConfigParserFactory{}
-	case "yaml":
-		return yamlRuleConfigParserFactory{}
+	case "1":
+		return FactoryMethodsImpl1{}
+	case "2":
+		return FactoryMethodsImpl2{}
 	}
 	return nil
 }

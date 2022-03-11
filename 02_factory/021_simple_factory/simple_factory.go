@@ -1,35 +1,33 @@
 package factory
 
-// IRuleConfigParser IRuleConfigParser
-type IRuleConfigParser interface {
+// Factory 工厂
+type Factory interface {
 	Parse(data []byte)
 }
 
-// jsonRuleConfigParser jsonRuleConfigParser
-type jsonRuleConfigParser struct {
+type implement1 struct {
 }
 
-// Parse Parse
-func (J jsonRuleConfigParser) Parse(data []byte) {
+// Parse 实现1
+func (J implement1) Parse(data []byte) {
 	panic("implement me")
 }
 
-// yamlRuleConfigParser yamlRuleConfigParser
-type yamlRuleConfigParser struct {
+type implement2 struct {
 }
 
-// Parse Parse
-func (Y yamlRuleConfigParser) Parse(data []byte) {
+// Parse 实现2
+func (Y implement2) Parse(data []byte) {
 	panic("implement me")
 }
 
-// NewIRuleConfigParser NewIRuleConfigParser
-func NewIRuleConfigParser(t string) IRuleConfigParser {
+// 返回实现1和实现2的共同父类
+func NewIRuleConfigParser(t string) Factory {
 	switch t {
-	case "json":
-		return jsonRuleConfigParser{}
-	case "yaml":
-		return yamlRuleConfigParser{}
+	case "1":
+		return implement1{}
+	case "2":
+		return implement2{}
 	}
 	return nil
 }

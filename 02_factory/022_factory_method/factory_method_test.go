@@ -5,6 +5,10 @@ import (
 	"testing"
 )
 
+/**
+工厂方法模式
+在工厂方法上再抽象一层
+*/
 func TestNewIRuleConfigParserFactory(t *testing.T) {
 	type args struct {
 		t string
@@ -12,17 +16,17 @@ func TestNewIRuleConfigParserFactory(t *testing.T) {
 	tests := []struct {
 		name string
 		args args
-		want IRuleConfigParserFactory
+		want FactoryMethods
 	}{
 		{
-			name: "json",
-			args: args{t: "json"},
-			want: jsonRuleConfigParserFactory{},
+			name: "1",
+			args: args{t: "1"},
+			want: FactoryMethodsImpl1{},
 		},
 		{
-			name: "yaml",
-			args: args{t: "yaml"},
-			want: yamlRuleConfigParserFactory{},
+			name: "2",
+			args: args{t: "2"},
+			want: FactoryMethodsImpl2{},
 		},
 	}
 	for _, tt := range tests {
